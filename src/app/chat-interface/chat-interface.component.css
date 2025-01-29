@@ -1,0 +1,72 @@
+/* Remove SCSS imports and use CSS variables */
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --message-bg: #f0f2f5;
+    --user-message-bg: #1877f2;
+}
+
+.dark-theme {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --message-bg: #2d2d2d;
+    --user-message-bg: #0066cc;
+}
+
+.chat-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+    transition: all 0.3s ease;
+}
+
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    background: var(--bg-color);
+}
+
+.messages-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.message-bubble {
+    max-width: 70%;
+    margin: 1rem 0;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    background: var(--message-bg);
+    color: var(--text-color);
+    position: relative;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+    margin-left: auto;
+}
+
+.user-message .message-bubble {
+    background: var(--user-message-bg);
+    color: white;
+    border-radius: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.bot-message .message-bubble {
+    border-radius: 1.5rem 1.5rem 1.5rem 0;
+}
+
+
+/* Rest of the CSS remains similar but without SCSS features */

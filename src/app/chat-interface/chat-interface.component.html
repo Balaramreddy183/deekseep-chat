@@ -1,0 +1,50 @@
+<!-- src/app/chat-interface/chat-interface.component.html -->
+<div class="chat-container" [class.dark-theme]="theme === 'dark'">
+    <div class="theme-toggle" (click)="toggleTheme()">
+        <i [class]="theme === 'light' ? 'bi bi-moon-stars' : 'bi bi-sun'"></i>
+    </div>
+
+    <div class="messages-container" #messagesContainer>
+        <div *ngFor="let message of messages" [class]="message.isBot ? 'bot-message' : 'user-message'" [class.loading]="message.loading" [class.error]="message.error" (click)="regenerateResponse(message)">
+
+            <div class="message-bubble">
+                <div class="message-header">
+                    <i *ngIf="message.isBot" class="bot-icon bi bi-robot"></i>
+                    <span class="sender">{{ message.isBot ? 'DeepSeek AI' : 'You' }}</span>
+                    <span class="timestamp">{{ today | date:'HH:mm' }}</span>
+                </div>
+
+                <div class="message-content" [innerHTML]="message.loading ? '' : parseMarkdown(message.content)">
+                </div>
+
+                <div class="typing-indicator" *ngIf="message.loading">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+
+                <div class="error-overlay" *ngIf="message.error">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <div class="emoji-picker" [class.visible]="emojiPickerVisible">
+            <div class="emoji" *ngFor="let emoji of emojis" (click)="addEmoji(emoji.emoji)">
+                {{ emoji.emoji }}
+            </div>
+        </div>
+
+        <button class="emoji-trigger btn btn-link" (click)="toggleEmojiPicker()">
+        <i class="bi bi-emoji-smile"></i>
+      </button>
+
+        <input type="text" class="form-control" placeholder="Ask DeepSeek anything..." [formControl]="messageControl" (keyup.enter)="sendMessage()">
+
+        <button class="send-button btn btn-primary" (click)="sendMessage()" [disabled]="!messageControl.value">
+        <i class="bi bi-send"></i>
+      </button>
+    </div>
+</div>
